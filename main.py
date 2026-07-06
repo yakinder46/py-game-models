@@ -12,7 +12,7 @@ def main() -> None:
         race_data = data.get("race", {})
         race, _ = Race.objects.get_or_create(
             name=race_data.get("name"),
-            defaults={"description": race_data.get("description")},
+            defaults={"description": race_data.get("description", "")},
         )
 
         skills_data = race_data.get("skills", [])
@@ -20,7 +20,7 @@ def main() -> None:
             Skill.objects.get_or_create(
                 name=skill_data.get("name"),
                 race=race,
-                defaults={"bonus": skill_data.get("bonus")},
+                defaults={"bonus": skill_data.get("bonus", "")},
             )
 
         guild_data = data.get("guild")
@@ -35,7 +35,7 @@ def main() -> None:
             nickname=nickname,
             defaults={
                 "email": data.get("email"),
-                "bio": data.get("bio"),
+                "bio": data.get("bio", ""),
                 "race": race,
                 "guild": guild,
             },
